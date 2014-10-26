@@ -1,107 +1,138 @@
-// This is the EVRYTHNG Application
-// Operator Key voHz9oDXbiXPpAzijd9GJimkFdVdzlhZJ67cbZxrdP1bwEiFPiUgkqJnK5dn4EXqHDyPd0AepqGZZiht
-// APP Key lAwoL9SRTFx6SJFsR6qvpqj0G8MeSL2k6m4Lq2npugZLKV07aMf0mr5V9x4kVYnuNUCIgGcLvrUMCzuU
-var app = new EVT.App('voHz9oDXbiXPpAzijd9GJimkFdVdzlhZJ67cbZxrdP1bwEiFPiUgkqJnK5dn4EXqHDyPd0AepqGZZiht');
+/*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
+/*jslint devel: true */
 
-var st = new ScanThng({
-  invisible: true,
-  redirect: false,
-  errorCb: scanErrorCb,
-  successCb: scanSuccessCb,
-  apiKey: 'lAwoL9SRTFx6SJFsR6qvpqj0G8MeSL2k6m4Lq2npugZLKV07aMf0mr5V9x4kVYnuNUCIgGcLvrUMCzuU'
-});
+var projectKey = 'Opvz32M27fqu3KlSnlwjI7xKI2mevilcWPSsTW9g3yUB4krUVUVqN3p3x1KxMALWLQaYbD2AcvVnrupM';
+// Instantiate Base EVRYTHNG Object
+var app = new EVT.App(projectKey);
+// Instantiate Coke wrapper Function
+var wrapper = new EvrythngCokeWrapper();
+//  create the EVRYTHNG Usr Object
+var user = wrapper.getUserContext(EVT, app);
+// Create the ScanThng Object
+var scanThng = wrapper.scanObj(projectKey, scanErrorCb, scanSuccessCb);
+// save last scanned Product ID as a Global
+var evtLastScannedProduct = '';
 
-
-
+// Call Back when image detection returns an error
 function scanErrorCb(error) {
+  'use strict';
   $(document).ready(function(){
-    $("#results").html('<br>Error<br>' + JSON.stringify(error, null, 2));
+    $('#results').html('<h2>Error</h2>' + JSON.stringify(error, null, 2));
   });
-  // Om Error return all products from EVRYTHNG
-  app.product().read().then(function(products) {
-    $(document).ready(function(){
-      $("#results").append("<br>Products<br>" + JSON.stringify(products, null, 2));
-    });
-  });
+  // On Error return all products from EVRYTHNG
+  getAllProducts();
 }
 
+// Call back when a product has been identified
 function scanSuccessCb(data) {
-  console.log("Success" + JSON.stringify(data));
+  'use strict';
   $(document).ready(function(){
-    $("#results").html("<br>Scan Successful<br>" + JSON.stringify(data, null, 2));
-
+    $('#results').html('<h2>Scan Successful</h2>' + JSON.stringify(data, null, 2));
+    evtLastScannedProduct = data.evrythngId;
+    console.log('Last Scanned Product : ' + evtLastScannedProduct);
   });
 
+  // get the product data from the evrythng engine using the product ID returned from the scan
+  // this is for demo only to show the product returned
   app.product(data.evrythngId).read().then(function(product) {
     $(document).ready(function(){
-      $("#results").append("<br>Product<br>" + JSON.stringify(product, null, 2));
-      $("#productName").text("Product Description : " + product.description);
+      $('#results').append('<h2>Product</h2>' + JSON.stringify(product, null, 2));
+      $('#productName').text('Product Description : ' + product.description);
     });
+  });
+  // run rules to find redirection
+  wrapper.runRules(user, data.evrythngId).then(function (reactions) {
+    // display first reaction
+    $('#campaign').text(JSON.stringify(reactions[0].text));
   });
 }
 
 function scanBottle() {
-  // left the scanType in here to show how config can be changed at scan time
-  st.identify({scanType: 'OBJPICT'});
+  'use strict';
+  // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
+  scanThng.identify();
 }
 
+
+// list all products on EVRYTHNG tagged with Coke
 function getAllProducts() {
-  app.product().read().then(function(products) {
-    console.log(products);
-    $("#results").html("<br>All Products<br>" + JSON.stringify(products, null, 4));
+  'use strict';
+  user.product().read({
+    }).then(function(products) {
+     console.log(products);
+     $('#results').append('<h2>All Products</h2>' + JSON.stringify(products, null, 4));
+   });
+}
+
+// Records an Action on a product
+function recordAction(actionType) {
+  'use strict';
+  wrapper.recordProductAction(actionType,user,evtLastScannedProduct).then(function(response) {
+    $('#results').html('<h2>' + actionType + ' Added</h2>' + JSON.stringify(response, null, 4));
   });
 }
 
-// copied functions as an example, obviously should be a reusable function
-
-function recordPurchase() {
-  app.product("UVxaThwWse5RaFk6kh4cctgb").read().then(function(product) {
-    product.action('_Purchase').create().then(function(response) {
-      console.log(response);
-      $("#results").html("<br>Action Added<br>" + JSON.stringify(response, null, 4));
+function getScans() {
+  'use strict';
+  user.product(evtLastScannedProduct).read().then(function (product) {
+    product.action('scans').read().then(function (scans) {
+      console.log(scans);
+      $('#results').html('<h2>Scans </h2>' + JSON.stringify(scans, null, 4));
     });
   });
+
 }
-
-
-function recordShare() {
-  app.product("UVxaThwWse5RaFk6kh4cctgb").read().then(function(product) {
-    product.action('_Share').create().then(function(response) {
-      console.log(response);
-      $("#results").html("<br>Action Added<br>" + JSON.stringify(response, null, 4));
-    });
+// return all actions for last read product based on type of action
+function getActions(actionType) {
+  'use strict';
+  wrapper.getProductActions(actionType,user,evtLastScannedProduct).then(function(actions) {
+    $('#results').html('<h2>' + actionType + ' '  + actions.length + '</h2>' + JSON.stringify(actions, null, 4));
+    if (actionType === 'Kisses') {
+      $('#kissmeter').text(actions.length);
+    }
   });
 }
 
-function getPurchases() {
+// relocate
+function redirectToConsumerApp(location) {
+  'use strict';
+  window.location.replace(location);
+}
 
+/*
+Server Side Calls Only used here as an example
+ */
+
+function getPlacesNearEVRYTHNG() {
+  'use strict';
+  getPlaces(51.508514999999996,-0.125487,1);
+}
+
+function getPlaces(latitude,longitude,distance) {
+  'use strict';
   EVT.api({
-    url: '/actions/_Purchase',
-    params: {
-      product: 'UVxaThwWse5RaFk6kh4cctgb'
+    url: '/places',
+    params : {
+      lat : latitude,
+      lon : longitude,
+      maxDist : distance
     },
-    authorization: "voHz9oDXbiXPpAzijd9GJimkFdVdzlhZJ67cbZxrdP1bwEiFPiUgkqJnK5dn4EXqHDyPd0AepqGZZiht"
-  }).then(function(actions){
-      console.log(actions);
-      $("#results").html("<br>Purchases " + actions.length + "<br>" + JSON.stringify(actions, null, 4));
-    });
+    authorization: 'viRSkcMRwCRXVVbVKa9tKdm8rVxRzhIidM1EgvDHJkqdWHtP8WtOR2xsBjHPm7izuUBGyH2T4Pzbv72K'
+  }).then(function(places){
+    console.log(places);
+    $('#results').html('<h2>Closest Retailers</h2>' + JSON.stringify(places, null, 4));
+  });
 }
 
-function getShares() {
-
+function getAllPlaces() {
+  'use strict';
+  // can be filtered by Tags (eg all tescos / carrefour)
   EVT.api({
-    url: '/actions/_Share',
-    params: {
-      product: 'UVxaThwWse5RaFk6kh4cctgb'
-    },
-    authorization: "voHz9oDXbiXPpAzijd9GJimkFdVdzlhZJ67cbZxrdP1bwEiFPiUgkqJnK5dn4EXqHDyPd0AepqGZZiht"
-  }).then(function(actions){
-      console.log(actions);
-      $("#results").html("<br>Shares " + actions.length + "<br>" + JSON.stringify(actions, null, 4));
-    });
+    url: '/places',
+    authorization: 'viRSkcMRwCRXVVbVKa9tKdm8rVxRzhIidM1EgvDHJkqdWHtP8WtOR2xsBjHPm7izuUBGyH2T4Pzbv72K'
+  }).then(function(places){
+    console.log(places);
+    $('#results').html('<h2>All Retailers</h2>' + JSON.stringify(places, null, 4));
+  });
 }
 
-
-function getResponseTime() {
-   pingAPI();
-}
