@@ -7,7 +7,9 @@
 
     // get the user context or create a new one. HTML 5 Local storage is used to save the "device" id
     this.getUserContext = function myMethod(EVT, app) {
+      $('#debug').append("In User");
       var userId = window.localStorage.getItem('userId');
+      $('#debug').append("USer :" + userId);
       if (userId === null) {
         // create new user object
         app.appUser().create({
@@ -15,6 +17,7 @@
         }).then(function(anonymousUser){
           console.log('Created anonymous user: ', anonymousUser); // good to go, doesn't need validation
           // store anonymous user details locally
+          $('#debug').append("Created Anon User :" + JSON.stringify(anonymousUser));
           if (window.localStorage) {
             localStorage.userId = anonymousUser.id;
             localStorage.apiKey = anonymousUser.apiKey;
@@ -25,11 +28,13 @@
       else {
         // userId exists, get User Context
         var apiKey = window.localStorage.getItem('apiKey');
+        $('#debug').append('HTML 5 Anon user detected, api key : ' + apiKey);
         var anonymousUser = new EVT.User({
           id: localStorage.userId,
           apiKey: localStorage.apiKey
         }, app);
         console.log(anonymousUser);
+        $('#debug').append("Retrieve Anon User :" + JSON.stringify(anonymousUser));
         return anonymousUser;
       }
     };
