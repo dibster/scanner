@@ -36,7 +36,9 @@
 
     // scanThng Object Creation
     this.scanObj = function scanObj(EVT, app) {
-      return new EVT.ScanThng(app);
+      var st = new EVT.ScanThng(app);
+      st.setup({redirect: false,type : 'objpic'});
+      return st;
     };
 
 

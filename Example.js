@@ -50,7 +50,7 @@ function scanSuccessCb(data) {
 function scanBottle() {
   'use strict';
   // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
-  scanThng.identify({redirect: false,type : 'objpic'})
+  scanThng.identify()
     .then(scanSuccessCb, scanErrorCb);
 }
 
