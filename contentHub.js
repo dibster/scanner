@@ -1,6 +1,7 @@
 // Contour Hub Sample
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
+
 var operatorKey = 'viRSkcMRwCRXVVbVKa9tKdm8rVxRzhIidM1EgvDHJkqdWHtP8WtOR2xsBjHPm7izuUBGyH2T4Pzbv72K';
 
 var app = new EVT.App(operatorKey);
