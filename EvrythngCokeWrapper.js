@@ -35,17 +35,10 @@
     };
 
     // scanThng Object Creation
-    this.scanObj = function scanObj(projectKey, errorCb, successCb) {
-      return new ScanThng({
-        invisible: true,
-        redirect: false,
-        errorCb: errorCb,
-        scanType : 'OBJPICT',
-        spinner : { auto: true },
-        successCb: successCb,
-        apiKey: projectKey
-      });
+    this.scanObj = function scanObj(EVT, app) {
+      return new EVT.ScanThng(app);
     };
+
 
     // run the Rules by doing a scan on the product. The rules will return the route
     this.runRules = function runRules(user, productId) {

@@ -9,7 +9,7 @@ var wrapper = new EvrythngCokeWrapper();
 //  create the EVRYTHNG Usr Object
 var user = wrapper.getUserContext(EVT, app);
 // Create the ScanThng Object
-var scanThng = wrapper.scanObj(projectKey, scanErrorCb, scanSuccessCb);
+var scanThng = wrapper.scanObj(EVT,app);
 // save last scanned Product ID as a Global
 var evtLastScannedProduct = '';
 
@@ -50,7 +50,8 @@ function scanSuccessCb(data) {
 function scanBottle() {
   'use strict';
   // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
-  scanThng.identify();
+  scanThng.identify({redirect: false,type : 'objpic'})
+    .then(scanSuccessCb, scanErrorCb);
 }
 
 
