@@ -1,7 +1,7 @@
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
 
-  var projectKey = '9Mi4FjyZpsjGVSnj3mUxZ71gTxJrp0bxcEvnUHFdzZiLLVxUudCoSi2R3cNoQnzIL7ZSn28bRv9A3zAP';
+  var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 // Instantiate Base EVRYTHNG Object
   var app = new EVT.App(projectKey);
 // Instantiate Coke wrapper Function
@@ -50,6 +50,7 @@
   function scanBottle() {
     'use strict';
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
+    //{"createScanAction" : true}
     scanThng.identify()
         .then(scanSuccessCb, scanErrorCb);
   }
@@ -120,7 +121,7 @@
         lon: longitude,
         maxDist: distance
       },
-      authorization: '9Mi4FjyZpsjGVSnj3mUxZ71gTxJrp0bxcEvnUHFdzZiLLVxUudCoSi2R3cNoQnzIL7ZSn28bRv9A3zAP'
+      authorization: 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui'
     }).then(function (places) {
       console.log(places);
       $('#results').html('<h2>Closest Retailers</h2>' + JSON.stringify(places, null, 4));
@@ -132,7 +133,7 @@
     // can be filtered by Tags (eg all tescos / carrefour)
     EVT.api({
       url: '/places',
-      authorization: '9Mi4FjyZpsjGVSnj3mUxZ71gTxJrp0bxcEvnUHFdzZiLLVxUudCoSi2R3cNoQnzIL7ZSn28bRv9A3zAP'
+      authorization: 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui'
     }).then(function (places) {
       console.log(places);
       $('#results').html('<h2>All Retailers</h2>' + JSON.stringify(places, null, 4));
