@@ -1,12 +1,12 @@
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
 
-  var projectKey = 'sHDk98mF2HKBiPh33kB2gcfUeq3GW4i6D5DbGlAMP7ipQ3WGqf1uxTuMyaqbKsPKxlO0wk7I0O0fR5iL';
+  var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 // Instantiate Base EVRYTHNG Object
 // staging https://api-staging.evrythng.net
-  EVT.setup({
-    apiUrl: 'https://api-staging.evrythng.net'
-  });
+//  EVT.setup({
+//    apiUrl: 'https://api-staging.evrythng.net'
+//  });
 
   var app = new EVT.App(projectKey);
 
