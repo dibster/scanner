@@ -81,6 +81,15 @@
     });
   }
 
+
+function removeUser() {
+  window.localStorage.clear()
+}
+
+function createUser() {
+  var user = wrapper.getUserContext(EVT, app);
+}
+
   function getScans() {
     'use strict';
     user.product(evtLastScannedProduct).read().then(function (product) {
