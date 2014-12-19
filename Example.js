@@ -83,7 +83,7 @@
 
 
 function removeUser() {
-  window.localStorage.clear()
+  localStorage.clear();
 }
 
 function createUser() {
