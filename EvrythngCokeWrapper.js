@@ -39,7 +39,7 @@
       var st = new EVT.ScanThng(app);
       st.setup({redirect: false,
         imageConversion : {
-          greyscale: false
+          greyscale: true
         },
         type : 'objpic'});
       return st;
