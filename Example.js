@@ -1,7 +1,7 @@
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
 
-  var projectKey = 'NidRxo1IsDU4z7MpDMiIyKfvc1I8zOhXgqgVjyOs3dQHYjTGT8Ai3GqJI7QCc6OSxSlT5RWfZxVd0B4N';
+  var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 // Instantiate Base EVRYTHNG Object
 // staging https://api-staging.evrythng.net
 //  EVT.setup({

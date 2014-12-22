@@ -38,9 +38,8 @@
     this.scanObj = function scanObj(EVT, app) {
       var st = new EVT.ScanThng(app);
       st.setup({redirect: false,
-        imageConversion : {
-          greyscale: true
-        },
+        createScanAction : true,
+        createAnonymousUser : true,
         type : 'objpic'});
       return st;
     };
