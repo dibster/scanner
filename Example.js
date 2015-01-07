@@ -49,11 +49,31 @@
   function getAllProducts() {
     'use strict';
     console.log('get all products');
-    user.product().read({
+    app.product().read({
     }).then(function (products) {
       console.log(products);
       $('#results').append('<h2>All Products</h2>' + JSON.stringify(products, null, 4));
     });
   }
 
+
+// list all products on EVRYTHNG tagged with Coke
+  function clearMessages() {
+    'use strict';
+    $('#results').empty();
+  }
+
+  function ShowUser() {
+    'use strict';
+    console.log('showuser', window.localStorage.length);
+    var results =  [];
+    for (var i = 0; i < window.localStorage.length; i++) {
+      var key = window.localStorage.key(i);
+      console.log(key);
+      if (key.slice(0,8) === "scanthng") {
+        console.log('is st');
+        $('#results').append( window.localStorage.getItem(key));
+      }
+    }
+  }
 
