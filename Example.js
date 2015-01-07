@@ -2,11 +2,6 @@
 /*jslint devel: true */
 
   var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
-// Instantiate Base EVRYTHNG Object
-// staging https://api-staging.evrythng.net
-//  EVT.setup({
-//    apiUrl: 'https://api-staging.evrythng.net'
-//  });
 
   var app = new EVT.App(projectKey);
 
@@ -66,7 +61,7 @@
   function getAllProducts() {
     'use strict';
     console.log('get all products');
-    user.product().read({
+    app.product().read({
     }).then(function (products) {
       console.log(products);
       $('#results').append('<h2>All Products</h2>' + JSON.stringify(products, null, 4));
