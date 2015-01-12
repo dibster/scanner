@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b4863ba-26f4-42dc-a5eb-115c4e3d386f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Bottle_Scan_Example.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/EvrythngCokeWrapper.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/demos/add-event/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/demos/debug/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/demos/detect-homescreen/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/demos/simple/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/demos/stock-android/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/action-icon-android.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/action-icon-ios6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/action-icon-ios7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/icon-152x152.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/icon-16x16.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/icon-196x196.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/imgs/icon.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/src/addtohomescreen.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/src/addtohomescreen.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/add-to-homescreen-master/style/addtohomescreen.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/contentHub.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/contentHub.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Example.js" afterPath="$PROJECT_DIR$/Example.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower_components/evrythng/dist/evrythng.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower_components/scanthng/scanthng.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="scanner.iws" />
@@ -195,6 +173,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="evrythng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="evrythng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -400,13 +400,20 @@
       <option name="project" value="LOCAL" />
       <updated>1420635988678</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="coke 2015 app  used">
+      <created>1421062538849</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1421062538849</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1857" height="1085" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -422,7 +429,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -470,7 +476,8 @@
     <MESSAGE value="new rule" />
     <MESSAGE value="updated local storage users" />
     <MESSAGE value="check Mobile" />
-    <option name="LAST_COMMIT_MESSAGE" value="check Mobile" />
+    <MESSAGE value="coke 2015 app  used" />
+    <option name="LAST_COMMIT_MESSAGE" value="coke 2015 app  used" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
