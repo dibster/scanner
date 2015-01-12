@@ -1,18 +1,19 @@
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
 
-  var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
+  var projectKey = '7xVXSp2cHRCQG7pPG5v7Ar27Mq7mAf6qRniccOlrmhabSOxwRR8u2Z1eiAdoDxeulhL8LaAg6HvHurDB';
 
   var app = new EVT.App(projectKey);
 
-// Instantiate Coke wrapper Function
-  var wrapper = new EvrythngCokeWrapper();
 //  create the EVRYTHNG Usr Object
   var user = {};
 // Create the ScanThng Object
-  var scanThng = wrapper.scanObj(EVT, app);
-// save last scanned Product ID as a Global
-  var evtLastScannedProduct = '';
+  var st = new EVT.ScanThng(app);
+  st.setup({redirect: false,
+  createScanAction : true,
+  createAnonymousUser : true,
+  type : 'objpic'});
+
 
 // Call Back when image detection returns an error
   function scanErrorCb(error) {
@@ -30,7 +31,6 @@
     user = data.user;
     $(document).ready(function () {
       $('#results').html('<h2>Scan Successful</h2>' + JSON.stringify(data, null, 2));
-      evtLastScannedProduct = data.evrythngId;
       console.log('Last Scanned Product : ' + evtLastScannedProduct);
     });
 
@@ -40,7 +40,7 @@
     'use strict';
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
-    scanThng.identify()
+    st.identify()
         .then(scanSuccessCb, scanErrorCb);
   }
 
@@ -66,14 +66,27 @@
   function ShowUser() {
     'use strict';
     console.log('showuser', window.localStorage.length);
+    var results = [];
+    for (var i = 0; i < window.localStorage.length; i++) {
+      var key = window.localStorage.key(i);
+      console.log(key);
+      if (key.slice(0, 8) === "scanthng") {
+        console.log('is st');
+        $('#results').append(window.localStorage.getItem(key));
+      }
+    }
+  }
+  function removeUser() {
+    'use strict';
+    console.log('remove user');
     var results =  [];
     for (var i = 0; i < window.localStorage.length; i++) {
       var key = window.localStorage.key(i);
       console.log(key);
       if (key.slice(0,8) === "scanthng") {
-        console.log('is st');
-        $('#results').append( window.localStorage.getItem(key));
+        $('#results').append( window.localStorage.removeItem(key));
       }
     }
-  }
+   }
+
 

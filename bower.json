@@ -1,0 +1,9 @@
+{
+  "name": "my-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "evrythng": "~2.0.8",
+    "scanthng": "~2.0.1"
+  },
+  "private": true
+}
