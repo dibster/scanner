@@ -40,6 +40,7 @@
     'use strict';
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
+    console.log('doing identify');
     st.identify()
         .then(scanSuccessCb, scanErrorCb);
   }
