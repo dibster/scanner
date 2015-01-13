@@ -1,7 +1,9 @@
 /*global EVT, getUserContext, scanObj, $, EvrythngCokeWrapper  */
 /*jslint devel: true */
-
-  var projectKey = '7xVXSp2cHRCQG7pPG5v7Ar27Mq7mAf6qRniccOlrmhabSOxwRR8u2Z1eiAdoDxeulhL8LaAg6HvHurDB';
+// coke 2015
+var projectKey = '7xVXSp2cHRCQG7pPG5v7Ar27Mq7mAf6qRniccOlrmhabSOxwRR8u2Z1eiAdoDxeulhL8LaAg6HvHurDB';
+// training
+//var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 
   var app = new EVT.App(projectKey);
 
