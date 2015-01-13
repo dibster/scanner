@@ -31,7 +31,7 @@
     user = data.user;
     $(document).ready(function () {
       $('#results').html('<h2>Scan Successful</h2>' + JSON.stringify(data, null, 2));
-      console.log('Last Scanned Product : ' + evtLastScannedProduct);
+
     });
 
    }
