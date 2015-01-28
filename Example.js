@@ -5,16 +5,30 @@
 // coke CSE UAT
 //var projectKey = 'NxDNY8T4NVkF4O2ATKLAt1lAtrNufKitoSohdqgV7jWjs4FUo3xSBGUkNsNSnC15lixixnWpjpxiz848';
 // training
-//var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
+var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 
 // Germany
-var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
+//var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
+
+
+
+var urlKey = getParameterByName(window.location.href,'key');
+if (urlKey !== '') {
+  projectKey = urlKey;
+  console.log('using Supplied Key ', projectKey);
+}
+else {
+  console.log('Using Default Key ', projectKey);
+}
+
+
 
   var app = new EVT.App(projectKey);
 
 //  create the EVRYTHNG Usr Object
   var user = {};
 // Create the ScanThng Object
+
   var st = new EVT.ScanThng(app);
   st.setup({redirect: false,
   createScanAction : true,
@@ -108,4 +122,10 @@ var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pV
     }
    }
 
+  function getParameterByName(url, name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(url);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
 
