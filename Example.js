@@ -12,16 +12,16 @@ var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQK
 
 
 
-var urlKey = getParameterByName(window.location.href,'key');
-if (urlKey !== '') {
-  projectKey = urlKey;
-  console.log('using Supplied Key ', projectKey);
-}
-else {
-  console.log('Using Default Key ', projectKey);
-}
+  var urlKey = getParameterByName(window.location.href,'key');
+  if (urlKey !== '') {
+    projectKey = urlKey;
+    console.log('using Supplied Key ', projectKey);
+  }
+  else {
+    console.log('Using Default Key ', projectKey);
+  }
 
-
+  $('#projectKey').html(projectKey);
 
   var app = new EVT.App(projectKey);
 
