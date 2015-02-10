@@ -6,33 +6,49 @@
 //var projectKey = 'NxDNY8T4NVkF4O2ATKLAt1lAtrNufKitoSohdqgV7jWjs4FUo3xSBGUkNsNSnC15lixixnWpjpxiz848';
 // training
 var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
-
+var imageResolution = 240;
 // Germany
 //var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
 
 
 
-  var urlKey = getParameterByName(window.location.href,'key');
-  if (urlKey !== '') {
-    projectKey = urlKey;
-    console.log('using Supplied Key ', projectKey);
-  }
-  else {
-    console.log('Using Default Key ', projectKey);
-  }
+var urlKey = getQueryVariable('key');
+if (urlKey !== '') {
+  projectKey = urlKey;
+  console.log('using Supplied Key ', projectKey);
+}
+else {
+  console.log('Using Default Key ', projectKey);
+}
 
-  $('#projectKey').html(projectKey);
+var resolutionKey = getQueryVariable('res');
 
-  var app = new EVT.App(projectKey);
+
+if (resolutionKey !== '') {
+  imageResolution = resolutionKey;
+  console.log('using Supplied Resolution ', imageResolution);
+}
+else {
+  console.log('Using Default Resolution', imageResolution);
+}
+
+$('#projectKey').html(projectKey);
+$('#imageResolution').html(imageResolution);
+
+var app = new EVT.App(projectKey);
 
 //  create the EVRYTHNG Usr Object
-  var user = {};
+var user = {};
 // Create the ScanThng Object
 
-  var st = new EVT.ScanThng(app);
-  st.setup({redirect: false,
+var st = new EVT.ScanThng(app);
+st.setup({redirect: false,
   createScanAction : true,
   createAnonymousUser : true,
+  imageConversion : {
+    greyscale: true,
+    resizeTo: imageResolution
+  },
   type : 'objpic'});
 
 
@@ -122,10 +138,15 @@ var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQK
     }
    }
 
-  function getParameterByName(url, name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(url);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-};
 
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split('&');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+    if (decodeURIComponent(pair[0]) == variable) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
+  console.log('Query variable %s not found', variable);
+}
