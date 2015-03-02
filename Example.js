@@ -24,7 +24,7 @@ else {
 var resolutionKey = getQueryVariable('res');
 
 
-if (resolutionKey !== '') {
+if (typeof resolutionKey != 'undefined') {
   imageResolution = resolutionKey;
   console.log('using Supplied Resolution ', imageResolution);
 }
