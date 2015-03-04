@@ -46,6 +46,7 @@ var user = {};
 // Create the ScanThng Object
 
 var st = new EVT.ScanThng(app);
+
 st.setup({redirect: false,
   createScanAction : true,
   createAnonymousUser : true,
@@ -70,23 +71,23 @@ document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions
 // Call Back when image detection returns an error
   function scanErrorCb(error) {
     'use strict';
-    $(document).ready(function () {
-      $('#results').html('<h2>Error</h2>' + JSON.stringify(error, null, 2));
-    });
+    writeResponse('Error',error);
     // On Error return all products from EVRYTHNG
     getAllProducts();
   }
 
 // Call back when a product has been identified
-  function scanSuccessCb(data) {
+function writeResponse(header, data) {
+  $(document).ready(function () {
+    $('#results').append('<h2>' + header + '</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>');
+
+  });
+}
+function scanSuccessCb(data) {
     'use strict';
     user = data.user;
-    $(document).ready(function () {
-      $('#results').html('<h2>Scan Successful</h2>' + JSON.stringify(data, null, 2));
-
-    });
-
-   }
+    writeResponse('Scan Successful',data);
+}
 
   function scanBottle() {
     'use strict';
@@ -106,7 +107,7 @@ document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions
     app.product().read({
     }).then(function (products) {
       console.log(products);
-      $('#results').append('<h2>All Products</h2>' + JSON.stringify(products, null, 4));
+      writeResponse('All Products', products);
     });
   }
 
@@ -125,8 +126,7 @@ document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions
       var key = window.localStorage.key(i);
       console.log(key);
       if (key.slice(0, 8) === "scanthng") {
-        console.log('is st');
-        $('#results').append(window.localStorage.getItem(key));
+        writeResponse('User Key',JSON.parse(window.localStorage.getItem(key)));
       }
     }
   }
@@ -138,7 +138,7 @@ document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions
       var key = window.localStorage.key(i);
       console.log(key);
       if (key.slice(0,8) === "scanthng") {
-        $('#results').append( window.localStorage.removeItem(key));
+        writeResponse('Key Removed',{});
       }
     }
    }

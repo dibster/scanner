@@ -29,7 +29,6 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#" onclick="clearMessages()">Clear Messages</a></li>
         <li><a href="#" onclick="removeUser()">Remove Local Storage</a></li>
         <li><a href="#" onclick="ShowUser()">Show User Key</a></li>
         <li class="active"><a href="#" onclick="getAllProducts()">List All Products</a></li>
@@ -63,7 +62,7 @@
 
     </div>
     <div class="col-md-8">
-      JSON Results <span id="productName"></span>
+      JSON Results <span id="productName"></span><button type="button" onclick="clearMessages()" class="btn btn-primary btn-xs">Clear</button>
       <br>
       <div id="results"></div>
     </div>
@@ -78,8 +77,8 @@
 <!--Example JS App-->
 <script src="bower_components/evrythng/dist/evrythng.js"></script>
 <!--<script src="bower_components/scanthng/scanthng.js"></script>-->
-<!--<script src="bower_components/scanthng/scanthng.js"></script>-->
-<script src="https://s3.amazonaws.com/scanthngjsdemo/scanthng-2.0.4.js"></script>
+<script src="bower_components/scanthng/scanthng.js"></script>
+<!--<script src="https://s3.amazonaws.com/scanthngjsdemo/scanthng-2.0.4.js"></script>-->
 
 <script src="Example.js"></script>
 
