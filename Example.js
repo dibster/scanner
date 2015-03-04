@@ -6,7 +6,6 @@
 //var projectKey = 'NxDNY8T4NVkF4O2ATKLAt1lAtrNufKitoSohdqgV7jWjs4FUo3xSBGUkNsNSnC15lixixnWpjpxiz848';
 // training
 var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
-var imageResolution = 240;
 // Germany
 //var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
 
@@ -21,19 +20,8 @@ else {
   console.log('Using Default Key ', projectKey);
 }
 
-var resolutionKey = getQueryVariable('res');
-
-
-if (typeof resolutionKey != 'undefined') {
-  imageResolution = resolutionKey;
-  console.log('using Supplied Resolution ', imageResolution);
-}
-else {
-  console.log('Using Default Resolution', imageResolution);
-}
 
 $('#projectKey').html(projectKey);
-$('#imageResolution').html(imageResolution);
 
 var app = new EVT.App(projectKey);
 
@@ -45,11 +33,22 @@ var st = new EVT.ScanThng(app);
 st.setup({redirect: false,
   createScanAction : true,
   createAnonymousUser : true,
+  type : 'objpic'});
+
+var defaultScanOptions =  {
+  redirect: false,
+  createScanAction : true,
+  createAnonymousUser : true,
   imageConversion : {
     greyscale: true,
-    resizeTo: imageResolution
+    resizeTo: 240
   },
-  type : 'objpic'});
+  type : 'objpic'
+  };
+
+document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions);
+
+//$('#scanOptions').text(defaultScanOptions);
 
 
 // Call Back when image detection returns an error
@@ -78,18 +77,8 @@ st.setup({redirect: false,
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
     console.log('doing identify');
-    st.identify( {
-          spinner: {
-            enabled: true,
-            appendTo: document.getElementsByTagName('body')[0],
-            options: {
-              length: 10,
-              radius: 10,
-              hwaccel: true
-            }
-          }
-        }
-    )
+    var scanOptions = JSON.parse(document.getElementById('scanOptions').value);
+    st.identify(scanOptions)
         .then(scanSuccessCb, scanErrorCb);
   }
 
