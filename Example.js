@@ -20,8 +20,24 @@ else {
   console.log('Using Default Key ', projectKey);
 }
 
+var env = getQueryVariable('env');
+if (env) {
+    console.log('using supplied API', env);
+}
+else {
+  env = 'https://api.evrythng.com'
+  console.log('Using Default API Production');
+}
+
+
+
+EVT.setup({
+  apiUrl: env
+});
+
 
 $('#projectKey').html(projectKey);
+$('#envUrl').html(env);
 
 var app = new EVT.App(projectKey);
 
