@@ -9,7 +9,7 @@ var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQK
 // Germany
 //var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
 
-
+trackJs.track('Tracking Started EVRYTHNG Test Scanner');
 
 var urlKey = getQueryVariable('key');
 if (urlKey !== '') {
