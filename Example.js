@@ -13,6 +13,9 @@ var projectKey = 'MTbxYEYbVksziybbx9XemVsmWlNKcxbJv0XyZlRywAaupt8QoQH4HyosXV7fa7
 
 trackJs.track('Tracking Started EVRYTHNG Test Scanner');
 
+trackJs.track('useragent  : ' +  navigator.userAgent);
+
+
 var urlKey = getQueryVariable('key');
 if (typeof urlKey !== 'undefined') {
   projectKey = urlKey;
@@ -53,6 +56,7 @@ st.setup({redirect: false,
   createScanAction : true,
   createAnonymousUser : true,
   type : 'objpic'});
+trackJs.track('scanthng setup');
 
 var defaultScanOptions =  {
   redirect: false,
@@ -67,6 +71,7 @@ document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions
 // Call Back when image detection returns an error
   function scanErrorCb(error) {
     'use strict';
+    trackJs.track('Start Error : ');
     writeResponse('Error',error);
     // On Error return all products from EVRYTHNG
     getAllProducts();
@@ -81,12 +86,14 @@ function writeResponse(header, data) {
 }
 function scanSuccessCb(data) {
     'use strict';
+    trackJs.track('Start Success : ');
     user = data.user;
     writeResponse('Scan Successful',data);
 }
 
   function scanBottle() {
     'use strict';
+    trackJs.track('Start Scan : ');
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
     console.log('doing identify');
