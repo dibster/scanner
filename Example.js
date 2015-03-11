@@ -110,8 +110,14 @@ function doNothing() {
 
     writeResponse('scan Options', scanOptions);
 
-    st.identify(scanOptions)
-      .then(scanSuccessCb, scanErrorCb);
+    try {
+      st.identify(scanOptions)
+          .then(scanSuccessCb, scanErrorCb);
+    }
+    catch(err) {
+      trackJs.track('Error caught on st identify : ' + err);
+    }
+
   }
 
 
