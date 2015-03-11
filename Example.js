@@ -54,6 +54,7 @@ var st = new EVT.ScanThng(app);
 
 st.setup({redirect: false,
   createScanAction : true,
+  invisible : false,
   createAnonymousUser : true,
   type : 'objpic'});
 trackJs.track('scanthng setup');
@@ -91,15 +92,26 @@ function scanSuccessCb(data) {
     writeResponse('Scan Successful',data);
 }
 
+function doNothing() {
+
+  trackJs.track('Do Nothing Button Clicked');
+  writeResponse('Do Nothing Button Clicked', '{}');
+
+}
+
   function scanBottle() {
     'use strict';
+    writeResponse('scanning Bottle','started')
     trackJs.track('Start Scan : ');
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
-    console.log('doing identify');
+
     var scanOptions = JSON.parse(document.getElementById('scanOptions').value);
+
+    writeResponse('scan Options', scanOptions);
+
     st.identify(scanOptions)
-        .then(scanSuccessCb, scanErrorCb);
+      .then(scanSuccessCb, scanErrorCb);
   }
 
 
