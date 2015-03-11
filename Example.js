@@ -56,12 +56,6 @@ st.setup({redirect: false,
 
 var defaultScanOptions =  {
   redirect: false,
-  createScanAction : true,
-  createAnonymousUser : true,
-  imageConversion : {
-    greyscale: true,
-    resizeTo: 240
-  },
   type : 'objpic'
   };
 
