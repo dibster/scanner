@@ -134,6 +134,7 @@ function scanSuccessCb(data) {
       var key = window.localStorage.key(i);
       console.log(key);
       if (key.slice(0,8) === "scanthng") {
+        window.localStorage.removeItem(key);
         writeResponse('Key Removed',{});
       }
     }
