@@ -5,14 +5,16 @@
 // coke CSE UAT
 //var projectKey = 'NxDNY8T4NVkF4O2ATKLAt1lAtrNufKitoSohdqgV7jWjs4FUo3xSBGUkNsNSnC15lixixnWpjpxiz848';
 // training
-var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
+//var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 // Germany
 //var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
+
+var projectKey = 'MTbxYEYbVksziybbx9XemVsmWlNKcxbJv0XyZlRywAaupt8QoQH4HyosXV7fa75joyVW0s1qT7tXLzt8';
 
 trackJs.track('Tracking Started EVRYTHNG Test Scanner');
 
 var urlKey = getQueryVariable('key');
-if (urlKey !== '') {
+if (typeof urlKey !== 'undefined') {
   projectKey = urlKey;
   console.log('using Supplied Key ', projectKey);
 }
