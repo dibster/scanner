@@ -8,13 +8,16 @@
 //var projectKey = 'ucGgQiSMTYa6rl0VjJzBPCcCfK6xRwa4uiMTCxH8C4JUetqnjbscuxi9YPDLQKmASp5uR1jQo0Sbauui';
 // Germany
 //var projectKey = 'Sl2MOysATSMiej7YrkkHfRJh7X45mJCQQicpohI23nD4tUG7KaWmPGFYhV36pVAeCecbWBRSq62XDRMz';
-
+// Germany test Account
 var projectKey = 'MTbxYEYbVksziybbx9XemVsmWlNKcxbJv0XyZlRywAaupt8QoQH4HyosXV7fa75joyVW0s1qT7tXLzt8';
 
-trackJs.track('Tracking Started EVRYTHNG Test Scanner');
+var trackjs = true;
 
-trackJs.track('useragent  : ' +  navigator.userAgent);
+if (trackjs) {
+  trackJs.track('Tracking Started EVRYTHNG Test Scanner');
 
+  trackJs.track('useragent  : ' + navigator.userAgent);
+};
 
 var urlKey = getQueryVariable('key');
 if (typeof urlKey !== 'undefined') {
@@ -57,11 +60,15 @@ st.setup({redirect: false,
   invisible : false,
   createAnonymousUser : true,
   type : 'objpic'});
-trackJs.track('scanthng setup');
+if (trackjs) trackJs.track('scanthng setup');
 
 var defaultScanOptions =  {
   redirect: false,
-  type : 'objpic'
+  type : 'objpic',
+    imageConversion  : {
+      greyscale: true,
+      resizeTo: 640
+    }
   };
 
 document.getElementById("scanOptions").value = JSON.stringify(defaultScanOptions);
@@ -87,14 +94,14 @@ function writeResponse(header, data) {
 }
 function scanSuccessCb(data) {
     'use strict';
-    trackJs.track('Start Success : ');
+  if (trackjs) trackJs.track('Start Success : ');
     user = data.user;
     writeResponse('Scan Successful',data);
 }
 
 function doNothing() {
 
-  trackJs.track('Do Nothing Button Clicked');
+  if (trackjs) trackJs.track('Do Nothing Button Clicked');
   writeResponse('Do Nothing Button Clicked', '{}');
 
 }
@@ -102,7 +109,7 @@ function doNothing() {
   function scanBottle() {
     'use strict';
     writeResponse('scanning Bottle','started')
-    trackJs.track('Start Scan : ');
+    if (trackjs) trackJs.track('Start Scan : ');
     // Config can be changed at scan time, eg a QR CODE -> scanThng.identify({scanType: 'QRCODE'});
     //{"createScanAction" : true}
 
@@ -115,7 +122,8 @@ function doNothing() {
           .then(scanSuccessCb, scanErrorCb);
     }
     catch(err) {
-      trackJs.track('Error caught on st identify : ' + err);
+      console.log('Error thrown in exception', err);
+      if (trackjs) trackJs.track('Error caught on st identify : ' + err);
     }
 
   }
