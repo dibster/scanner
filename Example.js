@@ -64,6 +64,7 @@ if (trackjs) trackJs.track('scanthng setup');
 
 var defaultScanOptions =  {
   redirect: false,
+  createScanAction: true,
   type : 'objpic',
     imageConversion  : {
       greyscale: true,
