@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrackVision Tablet Setup Guide</title>
+<style>
+  :root { --blue:#1857ff; --green:#10893e; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Inter,system-ui,sans-serif; color:var(--ink); background:#f7f8fa; }
+  .wrap { max-width:920px; margin:auto; padding:28px 20px 64px; }
+  .badge { width:fit-content; border-radius:999px; background:#eaf0ff; color:var(--blue); padding:7px 14px; font-weight:800; }
+  h1 { font-size:clamp(30px,5vw,46px); line-height:1.1; margin:16px 0 10px; }
+  .lead { color:var(--gray); margin:0 0 32px; font-size:19px; }
+  .step { display:grid; grid-template-columns:76px 1fr; gap:24px; align-items:start; margin-bottom:28px; }
+  .number { width:76px; height:76px; border-radius:24px; background:white; border:2px solid var(--line); display:grid; place-items:center; font-size:34px; font-weight:900; color:var(--blue); }
+  .card { background:white; border-radius:28px; padding:24px; box-shadow:0 12px 40px #10182812; }
+  .card h2 { margin:0 0 8px; font-size:24px; }
+  .card p { margin:0 0 18px; color:var(--gray); font-size:18px; }
+  .screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  .screens figure { margin:0; border-radius:18px; overflow:hidden; border:1px solid var(--line); }
+  .screens img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; }
+  figcaption { padding:10px 12px; font-size:15px; font-weight:700; background:white; }
+  .screen-solo { grid-column:1 / -1; }
+  .qr { max-width:460px; margin:0 auto; padding:18px; background:white; border:2px solid var(--line); border-radius:24px; }
+  .qr img { display:block; width:100%; height:auto; }
+  .ok { background:#ecfaef; border:1px solid #c3ecca; color:#0a6b31; border-radius:14px; padding:14px 16px; font-weight:800; }
+  .substeps { display:grid; gap:10px; margin:18px 0; }
+  .substep { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
+  .dot { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; }
+  .done { background:var(--green); }
+  .help-card { background:#fffaf0; border:2px solid #ffe4a3; }
+  .tip { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
+  .tip-number { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; font-weight:900; }
+  .problem { margin-top:16px; background:#fff1f0; border:1px solid #ffccc7; color:#b42318; border-radius:14px; padding:14px 16px; font-weight:800; }
+  .gate { position:fixed; inset:0; z-index:10; display:grid; place-items:center; background:#f7f8fa; padding:20px; }
+  .gate-box { width:min(420px,100%); background:white; border:1px solid var(--line); border-radius:28px; box-shadow:0 12px 40px #10182812; padding:30px; }
+  .gate-box h1 { font-size:30px; margin:0 0 10px; }
+  .gate-box label { display:block; color:var(--gray); font-weight:750; margin:18px 0 8px; }
+  .gate-box input { width:100%; border:1px solid var(--line); border-radius:14px; padding:14px 16px; font-size:18px; }
+  .gate-box button { width:100%; margin-top:18px; border:0; border-radius:14px; background:var(--blue); color:white; font-size:18px; font-weight:800; padding:14px; cursor:pointer; }
+  .gate-error { min-height:22px; margin:12px 0 0; color:#b42318; font-weight:750; text-align:center; }
+  .hidden { display:none; }
+  @media (max-width:700px) { .step { grid-template-columns:1fr; } .screens { grid-template-columns:1fr; } }
+</style>
+<body>
+<div id="gate" class="gate">
+  <form class="gate-box">
+    <h1>TrackVision setup guide</h1>
+    <label for="password">Enter password</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <button type="submit">Open guide</button>
+    <p id="gate-error" class="gate-error"></p>
+  </form>
+</div>
+<main id="main" class="hidden">
+<div class="wrap">
+  <div class="badge">FACTORY SETUP</div>
+  <h1>Install and check the tablet</h1>
+  <p class="lead">Five setup steps. Use the help tips at the end if something fails.</p>
+
+  <section class="step"><div class="number">1</div><div class="card">
+    <h2>Install the app</h2><p>Open Play Store. Search for TrackVision Factory Activation. Tap <b>Install</b>.</p>
+    <div class="screens"><figure><img src="assets/play-results.png" alt="Play Store search results"><figcaption>Find the app</figcaption></figure><figure><img src="assets/play-app-page.png" alt="Play Store app page"><figcaption>Tap Install</figcaption></figure></div>
+  </div></section>
+
+  <section class="step"><div class="number">2</div><div class="card">
+    <h2>Open the app</h2><p>Tap <b>Scan Factory Setup QR Code</b>.</p>
+    <div class="screens"><figure class="screen-solo"><img src="assets/factory-setup-first-run.png" alt="Factory setup first run screen"><figcaption>Tap Scan Factory Setup QR Code</figcaption></figure></div>
+  </div></section>
+
+  <section class="step"><div class="number">3</div><div class="card">
+    <h2>Scan this code</h2><p>Point the scanner at the MAS setup code. After the scan, check the tablet details and tap <b>Continue</b>.</p>
+    <div class="qr"><img src="assets/mas-setup-qr.png" alt="MAS factory setup QR code for site 617616"></div>
+    <div class="substeps"><div class="substep"><span class="dot done">✓</span> Factory name is correct</div><div class="substep"><span class="dot done">✓</span> Site ID is correct</div><div class="substep"><span class="dot done">✓</span> Time zone looks right</div></div>
+  </div></section>
+
+  <section class="step"><div class="number">4</div><div class="card">
+    <h2>Scanner setup check</h2><p>The tablet must pass this check. Follow the three screens.</p>
+    <div class="screens"><figure><img src="assets/scanner-step-1.png" alt="Connect scanner"><figcaption>Connect scanner</figcaption></figure><figure><img src="assets/scanner-step-2.png" alt="Scan barcode"><figcaption>Scan barcode</figcaption></figure><figure class="screen-solo"><img src="assets/scanner-step-3.png" alt="Scan PFL QR"><figcaption>Scan PFL QR</figcaption></figure></div>
+  </div></section>
+
+  <section class="step"><div class="number">5</div><div class="card">
+    <h2>Finish setup</h2><p>Wait for the green pass message. Then open the app.</p>
+    <div class="screens"><figure class="screen-solo"><img src="assets/scanner-passed.png" alt="Station check passed"><figcaption>Station check passed</figcaption></figure></div>
+    <div class="ok">Green check = good. Red warning = do not start the line.</div>
+  </div></section>
+
+  <section class="step"><div class="number">6</div><div class="card help-card">
+    <h2>Help &amp; tips</h2>
+    <div class="tip"><span class="tip-number">1</span> Sometimes you may have to unplug and plug in the scanner again.</div>
+    <div class="tip"><span class="tip-number">2</span> Make sure the scanner has power. Some tablets cannot power the scanner.</div>
+    <div class="problem">Any issues? Tap <b>Report Problem</b>. Do not start the line.</div>
+  </div></section>
+</div>
+</main>
+<script>
+  const password = "handsome";
+  const gate = document.getElementById("gate");
+  const main = document.getElementById("main");
+  const input = document.getElementById("password");
+  const error = document.getElementById("gate-error");
+
+  if (sessionStorage.getItem("tv-setup-guide") === password) {
+    gate.classList.add("hidden");
+    main.classList.remove("hidden");
+  }
+
+  gate.addEventListener("submit", event => {
+    event.preventDefault();
+    if (input.value === password) {
+      sessionStorage.setItem("tv-setup-guide", password);
+      gate.classList.add("hidden");
+      main.classList.remove("hidden");
+      error.textContent = "";
+    } else {
+      error.textContent = "Incorrect password.";
+    }
+  });
+</script>
