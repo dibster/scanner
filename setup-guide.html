@@ -2,6 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="guide-version" content="2026-10-19.2">
 <title>TrackVision Tablet Setup Guide</title>
 <style>
   :root { --blue:#1857ff; --green:#10893e; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
@@ -36,10 +37,12 @@
   .code-pair figure { margin:0; }
   .code-pair-codes img { display:block; width:100%; max-width:100%; height:auto; }
   .code-pair-codes figcaption { padding:10px 0 0; background:transparent; text-align:center; font-size:13px; }
-  .ean { aspect-ratio:113 / 90; object-fit:contain; background:white; }
+  .ean { aspect-ratio:678 / 540; object-fit:contain; background:white; }
   .tip { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
   .tip-number { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; font-weight:900; }
   .problem { margin-top:16px; background:#fff1f0; border:1px solid #ffccc7; color:#b42318; border-radius:14px; padding:14px 16px; font-weight:800; }
+  .guide-update { margin:18px 0 0; text-align:center; font-size:15px; font-weight:700; }
+  .guide-update a { color:var(--blue); }
   .gate { position:fixed; inset:0; z-index:10; display:grid; place-items:center; background:#f7f8fa; padding:20px; }
   .gate-box { width:min(420px,100%); background:white; border:1px solid var(--line); border-radius:28px; box-shadow:0 12px 40px #10182812; padding:30px; }
   .gate-box h1 { font-size:30px; margin:0 0 10px; }
@@ -64,7 +67,7 @@
 <div class="wrap">
   <div class="badge">FACTORY SETUP</div>
   <h1>Install and check the tablet</h1>
-  <p class="lead">Five setup steps and two scanner tests. Use the help tips at the end if something fails.</p>
+  <p class="lead">Complete the five setup steps. Then test two orders.</p>
 
   <section class="step"><div class="number">1</div><div class="card">
     <h2>Install the app</h2><p>Open Play Store. Search for TrackVision Factory Activation. Tap <b>Install</b>.</p>
@@ -94,55 +97,57 @@
   </div></section>
 
   <section class="step"><div class="number">7</div><div class="card">
-    <h2>7 Test PO Sample</h2>
-    <p>Select purchase order <b>T1791644319</b>. Scan both codes in one row, from left to right, before moving to the next pair.</p>
+    <h2>Test order 1</h2>
+    <p><b>Order T1791644319</b></p>
+    <p>Open this order. Scan the left code. Then scan the right code. Do all 5 pairs.</p>
     <div class="code-pairs">
       <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-1-qr.png" alt="PO sample pair 1 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-1-ean.png" alt="PO sample pair 1 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/po-sample-1-qr.png" alt="Test order 1, pair 1, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="ean" src="assets/test-codes/po-sample-1-ean.png" alt="Test order 1, pair 1, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 2</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-2-qr.png" alt="PO sample pair 2 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-2-ean.png" alt="PO sample pair 2 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/po-sample-2-qr.png" alt="Test order 1, pair 2, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="ean" src="assets/test-codes/po-sample-2-ean.png" alt="Test order 1, pair 2, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 3</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-3-qr.png" alt="PO sample pair 3 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-3-ean.png" alt="PO sample pair 3 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/po-sample-3-qr.png" alt="Test order 1, pair 3, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="ean" src="assets/test-codes/po-sample-3-ean.png" alt="Test order 1, pair 3, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 4</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-4-qr.png" alt="PO sample pair 4 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-4-ean.png" alt="PO sample pair 4 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/po-sample-4-qr.png" alt="Test order 1, pair 4, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="ean" src="assets/test-codes/po-sample-4-ean.png" alt="Test order 1, pair 4, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 5</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-5-qr.png" alt="PO sample pair 5 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-5-ean.png" alt="PO sample pair 5 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/po-sample-5-qr.png" alt="Test order 1, pair 5, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="ean" src="assets/test-codes/po-sample-5-ean.png" alt="Test order 1, pair 5, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
     </div>
   </div></section>
 
   <section class="step"><div class="number">8</div><div class="card">
-    <h2>8 Test Standard</h2>
-    <p>Select purchase order <b>T1791644300</b>. Scan both codes in one row, from left to right, before moving to the next pair.</p>
+    <h2>Test order 2</h2>
+    <p><b>Order T1791644300</b></p>
+    <p>Open this order. Scan the left code. Then scan the right code. Do all 5 pairs.</p>
     <div class="code-pairs">
       <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-1-left.png" alt="Standard test pair 1 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-1-right.png" alt="Standard test pair 1 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-1-left.png" alt="Test order 2, pair 1, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-1-right.png" alt="Test order 2, pair 1, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 2</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-2-left.png" alt="Standard test pair 2 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-2-right.png" alt="Standard test pair 2 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-2-left.png" alt="Test order 2, pair 2, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-2-right.png" alt="Test order 2, pair 2, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 3</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-3-left.png" alt="Standard test pair 3 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-3-right.png" alt="Standard test pair 3 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-3-left.png" alt="Test order 2, pair 3, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-3-right.png" alt="Test order 2, pair 3, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 4</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-4-left.png" alt="Standard test pair 4 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-4-right.png" alt="Standard test pair 4 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-4-left.png" alt="Test order 2, pair 4, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-4-right.png" alt="Test order 2, pair 4, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
       <div class="code-pair"><h3>Pair 5</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-5-left.png" alt="Standard test pair 5 left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-5-right.png" alt="Standard test pair 5 right code"><figcaption>Right code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-5-left.png" alt="Test order 2, pair 5, left code"><figcaption>Left code</figcaption></figure>
+        <figure><img class="qr" src="assets/test-codes/standard-5-right.png" alt="Test order 2, pair 5, right code"><figcaption>Right code</figcaption></figure>
       </div></div>
     </div>
   </div></section>
@@ -152,6 +157,7 @@
     <div class="tip"><span class="tip-number">1</span> Sometimes you may have to unplug and plug in the scanner again.</div>
     <div class="tip"><span class="tip-number">2</span> Make sure the scanner has power. Some tablets cannot power the scanner.</div>
     <div class="problem">Any issues? Tap <b>Report Problem</b>.</div>
+    <p id="guide-update" class="guide-update hidden" aria-live="polite"><a id="guide-update-link" href="setup-guide.html">A newer guide is available. Refresh guide</a></p>
   </div></section>
 </div>
 </main>
@@ -177,5 +183,33 @@
     } else {
       error.textContent = "Incorrect password.";
     }
+  });
+
+  const guideVersion = document.querySelector('meta[name="guide-version"]').content;
+  const updateNotice = document.getElementById("guide-update");
+  const updateLink = document.getElementById("guide-update-link");
+  let versionCheckRunning = false;
+
+  async function checkGuideVersion() {
+    if (versionCheckRunning) return;
+    versionCheckRunning = true;
+    try {
+      const response = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) return;
+      const latest = await response.json();
+      if (latest.version && latest.version !== guideVersion) {
+        updateLink.href = `?v=${encodeURIComponent(latest.version)}`;
+        updateNotice.classList.remove("hidden");
+      }
+    } catch {
+      // An offline or failed check must not stop the operator using this guide.
+    } finally {
+      versionCheckRunning = false;
+    }
+  }
+
+  checkGuideVersion();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") checkGuideVersion();
   });
 </script>
