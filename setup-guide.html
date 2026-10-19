@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="guide-version" content="2026-10-19.2">
+<meta name="guide-version" content="2026-10-19.3">
 <title>TrackVision Tablet Setup Guide</title>
 <style>
   :root { --blue:#1857ff; --green:#10893e; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
@@ -37,6 +37,9 @@
   .code-pair figure { margin:0; }
   .code-pair-codes img { display:block; width:100%; max-width:100%; height:auto; }
   .code-pair-codes figcaption { padding:10px 0 0; background:transparent; text-align:center; font-size:13px; }
+  .order-screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:18px 0; }
+  .order-screens figure { margin:0; border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+  .order-screens img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; }
   .ean { aspect-ratio:678 / 540; object-fit:contain; background:white; }
   .tip { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
   .tip-number { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; font-weight:900; }
@@ -51,7 +54,7 @@
   .gate-box button { width:100%; margin-top:18px; border:0; border-radius:14px; background:var(--blue); color:white; font-size:18px; font-weight:800; padding:14px; cursor:pointer; }
   .gate-error { min-height:22px; margin:12px 0 0; color:#b42318; font-weight:750; text-align:center; }
   .hidden { display:none; }
-  @media (max-width:700px) { .step { grid-template-columns:1fr; } .screens { grid-template-columns:1fr; } }
+  @media (max-width:700px) { .step { grid-template-columns:1fr; } .screens, .order-screens { grid-template-columns:1fr; } }
 </style>
 <body>
 <div id="gate" class="gate">
@@ -99,7 +102,11 @@
   <section class="step"><div class="number">7</div><div class="card">
     <h2>Test order 1</h2>
     <p><b>Order T1791644319</b></p>
-    <p>Open this order. Scan the left code. Then scan the right code. Do all 5 pairs.</p>
+    <p>Find and open this order. Then scan the left code and the right code. Do all 5 pairs.</p>
+    <div class="order-screens">
+      <figure><img src="assets/test-codes/order-list.png" alt="Order list with test order T1791644319"><figcaption>Find the order</figcaption></figure>
+      <figure><img src="assets/test-codes/order-scan.png" alt="Scanning page ready for the order"><figcaption>Scanning page</figcaption></figure>
+    </div>
     <div class="code-pairs">
       <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
         <figure><img class="qr" src="assets/test-codes/po-sample-1-qr.png" alt="Test order 1, pair 1, left code"><figcaption>Left code</figcaption></figure>
@@ -127,7 +134,11 @@
   <section class="step"><div class="number">8</div><div class="card">
     <h2>Test order 2</h2>
     <p><b>Order T1791644300</b></p>
-    <p>Open this order. Scan the left code. Then scan the right code. Do all 5 pairs.</p>
+    <p>Find and open this order. Then scan the left code and the right code. Do all 5 pairs.</p>
+    <div class="order-screens">
+      <figure><img src="assets/test-codes/order-list.png" alt="Order list with test order T1791644300"><figcaption>Find the order</figcaption></figure>
+      <figure><img src="assets/test-codes/order-scan.png" alt="Scanning page ready for the order"><figcaption>Scanning page</figcaption></figure>
+    </div>
     <div class="code-pairs">
       <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
         <figure><img class="qr" src="assets/test-codes/standard-1-left.png" alt="Test order 2, pair 1, left code"><figcaption>Left code</figcaption></figure>
