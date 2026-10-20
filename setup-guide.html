@@ -1,227 +1,117 @@
 <!doctype html>
 <html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="guide-version" content="2026-10-20.2">
+<meta name="robots" content="noindex, nofollow, noarchive">
 <title>TrackVision Tablet Setup Guide</title>
 <style>
-  :root { --blue:#1857ff; --green:#10893e; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
+  :root { --blue:#1857ff; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
   * { box-sizing:border-box; }
-  body { margin:0; font-family:Inter,system-ui,sans-serif; color:var(--ink); background:#f7f8fa; }
-  .wrap { max-width:920px; margin:auto; padding:28px 20px 64px; }
-  .badge { width:fit-content; border-radius:999px; background:#eaf0ff; color:var(--blue); padding:7px 14px; font-weight:800; }
-  h1 { font-size:clamp(30px,5vw,46px); line-height:1.1; margin:16px 0 10px; }
-  .lead { color:var(--gray); margin:0 0 32px; font-size:19px; }
-  .step { display:grid; grid-template-columns:76px 1fr; gap:24px; align-items:start; margin-bottom:28px; }
-  .number { width:76px; height:76px; border-radius:24px; background:white; border:2px solid var(--line); display:grid; place-items:center; font-size:34px; font-weight:900; color:var(--blue); }
-  .card { background:white; border-radius:28px; padding:24px; box-shadow:0 12px 40px #10182812; }
-  .card h2 { margin:0 0 8px; font-size:24px; }
-  .card p { margin:0 0 18px; color:var(--gray); font-size:18px; }
-  .screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
-  .screens figure { margin:0; border-radius:18px; overflow:hidden; border:1px solid var(--line); }
-  .screens img { display:block; width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; }
-  figcaption { padding:10px 12px; font-size:15px; font-weight:700; background:white; }
-  .screen-solo { grid-column:1 / -1; }
-  .qr { max-width:460px; margin:0 auto; padding:18px; background:white; border:2px solid var(--line); border-radius:24px; }
-  .qr img { display:block; width:100%; height:auto; }
-  .ok { background:#ecfaef; border:1px solid #c3ecca; color:#0a6b31; border-radius:14px; padding:14px 16px; font-weight:800; }
-  .substeps { display:grid; gap:10px; margin:18px 0; }
-  .substep { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
-  .dot { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; }
-  .done { background:var(--green); }
-  .help-card { background:#fffaf0; border:2px solid #ffe4a3; }
-  .code-pairs { display:grid; gap:16px; }
-  .code-pair { padding:14px; border:1px solid var(--line); border-radius:18px; }
-  .code-pair h3 { margin:0 0 10px; font-size:17px; }
-  .code-pair-codes { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start; }
-  .code-pair figure { margin:0; }
-  .code-pair-codes img { display:block; width:100%; max-width:100%; height:auto; }
-  .code-pair-codes figcaption { padding:10px 0 0; background:transparent; text-align:center; font-size:13px; }
-  .order-screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:18px 0; }
-  .order-screens figure { margin:0; border:1px solid var(--line); border-radius:18px; overflow:hidden; }
-  .order-screens img { display:block; width:100%; height:auto; object-fit:contain; }
-  .ean { aspect-ratio:678 / 540; object-fit:contain; background:white; }
-  .tip { display:flex; align-items:center; gap:14px; border:1px solid var(--line); border-radius:14px; padding:13px 15px; font-weight:750; }
-  .tip-number { min-width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:var(--blue); color:white; font-size:15px; font-weight:900; }
-  .problem { margin-top:16px; background:#fff1f0; border:1px solid #ffccc7; color:#b42318; border-radius:14px; padding:14px 16px; font-weight:800; }
-  .guide-update { margin:18px 0 0; text-align:center; font-size:15px; font-weight:700; }
-  .guide-update a { color:var(--blue); }
-  .gate { position:fixed; inset:0; z-index:10; display:grid; place-items:center; background:#f7f8fa; padding:20px; }
-  .gate-box { width:min(420px,100%); background:white; border:1px solid var(--line); border-radius:28px; box-shadow:0 12px 40px #10182812; padding:30px; }
-  .gate-box h1 { font-size:30px; margin:0 0 10px; }
-  .gate-box label { display:block; color:var(--gray); font-weight:750; margin:18px 0 8px; }
-  .gate-box input { width:100%; border:1px solid var(--line); border-radius:14px; padding:14px 16px; font-size:18px; }
-  .gate-box button { width:100%; margin-top:18px; border:0; border-radius:14px; background:var(--blue); color:white; font-size:18px; font-weight:800; padding:14px; cursor:pointer; }
-  .gate-error { min-height:22px; margin:12px 0 0; color:#b42318; font-weight:750; text-align:center; }
-  .hidden { display:none; }
-  @media (max-width:700px) { .step { grid-template-columns:1fr; } .screens, .order-screens { grid-template-columns:1fr; } }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; padding:20px; background:#f7f8fa;
+    color:var(--ink); font-family:Inter,system-ui,sans-serif; }
+  form { width:min(420px,100%); background:white; border:1px solid var(--line); border-radius:28px;
+    box-shadow:0 12px 40px #10182812; padding:30px; }
+  h1 { font-size:30px; line-height:1.1; margin:0 0 10px; }
+  p { margin:0; color:var(--gray); font-size:17px; }
+  label { display:block; color:var(--gray); font-weight:750; margin:18px 0 8px; }
+  input { width:100%; border:1px solid var(--line); border-radius:14px; padding:14px 16px; font-size:20px; }
+  button { width:100%; margin-top:18px; border:0; border-radius:14px; background:var(--blue); color:white;
+    font-size:18px; font-weight:800; padding:14px; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:default; }
+  .error { min-height:22px; margin:12px 0 0; color:#b42318; font-weight:750; text-align:center; }
 </style>
+</head>
 <body>
-<div id="gate" class="gate">
-  <form class="gate-box">
-    <h1>TrackVision setup guide</h1>
-    <label for="password">Enter password</label>
-    <input id="password" type="password" autocomplete="current-password">
-    <button type="submit">Open guide</button>
-    <p id="gate-error" class="gate-error"></p>
-  </form>
-</div>
-<main id="main" class="hidden">
-<div class="wrap">
-  <div class="badge">FACTORY SETUP</div>
-  <h1>Install and check the tablet</h1>
-  <p class="lead">Complete the five setup steps. Then test two orders.</p>
-
-  <section class="step"><div class="number">1</div><div class="card">
-    <h2>Install the app</h2><p>Open Play Store. Search for TrackVision Factory Activation. Tap <b>Install</b>.</p>
-    <div class="screens"><figure><img src="assets/play-results.png" alt="Play Store search results"><figcaption>Find the app</figcaption></figure><figure><img src="assets/play-app-page.png" alt="Play Store app page"><figcaption>Tap Install</figcaption></figure></div>
-  </div></section>
-
-  <section class="step"><div class="number">2</div><div class="card">
-    <h2>Open the app</h2><p>Tap <b>Scan Factory Setup QR Code</b>.</p>
-    <div class="screens"><figure class="screen-solo"><img src="assets/factory-setup-first-run.png" alt="Factory setup first run screen"><figcaption>Tap Scan Factory Setup QR Code</figcaption></figure></div>
-  </div></section>
-
-  <section class="step"><div class="number">3</div><div class="card">
-    <h2>Scan this code</h2><p>Point the scanner at the MAS setup code. After the scan, check the tablet details and tap <b>Continue</b>.</p>
-    <div class="qr"><img src="assets/mas-setup-qr.png" alt="MAS factory setup QR code for site 617616"></div>
-    <div class="substeps"><div class="substep"><span class="dot done">✓</span> Factory name is correct</div><div class="substep"><span class="dot done">✓</span> Site ID is correct</div><div class="substep"><span class="dot done">✓</span> Time zone looks right</div></div>
-  </div></section>
-
-  <section class="step"><div class="number">4</div><div class="card">
-    <h2>Scanner setup check</h2><p>The tablet must pass this check. Follow the three screens.</p>
-    <div class="screens"><figure><img src="assets/scanner-step-1.png" alt="Connect scanner"><figcaption>Connect scanner</figcaption></figure><figure><img src="assets/scanner-step-2.png" alt="Scan barcode"><figcaption>Scan barcode</figcaption></figure><figure class="screen-solo"><img src="assets/scanner-step-3.png" alt="Scan PFL QR"><figcaption>Scan PFL QR</figcaption></figure></div>
-  </div></section>
-
-  <section class="step"><div class="number">5</div><div class="card">
-    <h2>Finish setup</h2><p>Wait for the green pass message. Then open the app.</p>
-    <div class="screens"><figure class="screen-solo"><img src="assets/scanner-passed.png" alt="Station check passed"><figcaption>Station check passed</figcaption></figure></div>
-    <div class="ok">Green check = good. Red warning = check the scanner.</div>
-  </div></section>
-
-  <section class="step"><div class="number">7</div><div class="card">
-    <h2>Test order 1</h2>
-    <p><b>Order T1791644319</b></p>
-    <p>Find and open this order. Then scan the left code and the right code. Do all 5 pairs.</p>
-    <div class="order-screens">
-      <figure><img src="assets/test-codes/order-list.png" alt="Order list with test order T1791644319"><figcaption>Find the order</figcaption></figure>
-      <figure><img src="assets/test-codes/order-scan.png" alt="Scanning page ready for the order"><figcaption>Scanning page</figcaption></figure>
-    </div>
-    <div class="code-pairs">
-      <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-1-qr.png" alt="Test order 1, pair 1, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-1-ean.png" alt="Test order 1, pair 1, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 2</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-2-qr.png" alt="Test order 1, pair 2, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-2-ean.png" alt="Test order 1, pair 2, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 3</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-3-qr.png" alt="Test order 1, pair 3, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-3-ean.png" alt="Test order 1, pair 3, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 4</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-4-qr.png" alt="Test order 1, pair 4, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-4-ean.png" alt="Test order 1, pair 4, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 5</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/po-sample-5-qr.png" alt="Test order 1, pair 5, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="ean" src="assets/test-codes/po-sample-5-ean.png" alt="Test order 1, pair 5, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-    </div>
-  </div></section>
-
-  <section class="step"><div class="number">8</div><div class="card">
-    <h2>Test order 2</h2>
-    <p><b>Order T1791644300</b></p>
-    <p>Find and open this order. Then scan the left code and the right code. Do all 5 pairs.</p>
-    <div class="order-screens">
-      <figure><img src="assets/test-codes/order-list.png" alt="Order list with test order T1791644300"><figcaption>Find the order</figcaption></figure>
-      <figure><img src="assets/test-codes/order-scan.png" alt="Scanning page ready for the order"><figcaption>Scanning page</figcaption></figure>
-    </div>
-    <div class="code-pairs">
-      <div class="code-pair"><h3>Pair 1</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-1-left.png" alt="Test order 2, pair 1, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-1-right.png" alt="Test order 2, pair 1, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 2</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-2-left.png" alt="Test order 2, pair 2, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-2-right.png" alt="Test order 2, pair 2, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 3</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-3-left.png" alt="Test order 2, pair 3, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-3-right.png" alt="Test order 2, pair 3, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 4</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-4-left.png" alt="Test order 2, pair 4, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-4-right.png" alt="Test order 2, pair 4, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-      <div class="code-pair"><h3>Pair 5</h3><div class="code-pair-codes">
-        <figure><img class="qr" src="assets/test-codes/standard-5-left.png" alt="Test order 2, pair 5, left code"><figcaption>Left code</figcaption></figure>
-        <figure><img class="qr" src="assets/test-codes/standard-5-right.png" alt="Test order 2, pair 5, right code"><figcaption>Right code</figcaption></figure>
-      </div></div>
-    </div>
-  </div></section>
-
-  <section class="step"><div class="number">9</div><div class="card help-card">
-    <h2>Help &amp; tips</h2>
-    <div class="tip"><span class="tip-number">1</span> Sometimes you may have to unplug and plug in the scanner again.</div>
-    <div class="tip"><span class="tip-number">2</span> Make sure the scanner has power. Some tablets cannot power the scanner.</div>
-    <div class="tip"><span class="tip-number">3</span> The scanner must use US / English. If it does not, the scanner may need to be reset.</div>
-    <div class="problem">Any issues? Tap <b>Report Problem</b>.</div>
-    <p id="guide-update" class="guide-update hidden" aria-live="polite"><a id="guide-update-link" href="setup-guide.html">A newer guide is available. Refresh guide</a></p>
-  </div></section>
-</div>
-</main>
+<form id="gate" hidden autocomplete="off">
+  <h1>TrackVision setup guide</h1>
+  <p>Enter your factory ID to open your guide.</p>
+  <label for="factory-id">Factory ID</label>
+  <input id="factory-id" inputmode="text" autocapitalize="off" spellcheck="false" autofocus>
+  <button id="open" type="submit">Open guide</button>
+  <p id="error" class="error" role="alert"></p>
+</form>
 <script>
-  const password = "handsome";
-  const gate = document.getElementById("gate");
-  const main = document.getElementById("main");
-  const input = document.getElementById("password");
-  const error = document.getElementById("gate-error");
+(() => {
+  // Each factory's guide is encrypted at f/<lookup>.bin, lookup = first 16 hex of
+  // SHA-256("tv-guide:" + id); the key is PBKDF2-SHA256(id, salt, 250000) → AES-256-GCM.
+  // Built by docs/tools/guide in tv-commissioning-app; keep both sides in step.
+  const STORE = "tv-guide-factory-id";
+  const form = document.getElementById("gate");
+  const field = document.getElementById("factory-id");
+  const button = document.getElementById("open");
+  const error = document.getElementById("error");
+  const enc = new TextEncoder();
+  const b64d = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 
-  if (sessionStorage.getItem("tv-setup-guide") === password) {
-    gate.classList.add("hidden");
-    main.classList.remove("hidden");
+  class Unknown extends Error {}
+
+  async function lookup(id) {
+    const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode("tv-guide:" + id)));
+    return Array.from(digest.slice(0, 8), (b) => b.toString(16).padStart(2, "0")).join("");
   }
 
-  gate.addEventListener("submit", event => {
-    event.preventDefault();
-    if (input.value === password) {
-      sessionStorage.setItem("tv-setup-guide", password);
-      gate.classList.add("hidden");
-      main.classList.remove("hidden");
-      error.textContent = "";
-    } else {
-      error.textContent = "Incorrect password.";
-    }
-  });
-
-  const guideVersion = document.querySelector('meta[name="guide-version"]').content;
-  const updateNotice = document.getElementById("guide-update");
-  const updateLink = document.getElementById("guide-update-link");
-  let versionCheckRunning = false;
-
-  async function checkGuideVersion() {
-    if (versionCheckRunning) return;
-    versionCheckRunning = true;
+  async function open(raw) {
+    const id = raw.trim();
+    if (!id) throw new Unknown();
+    const response = await fetch("f/" + (await lookup(id)) + ".bin", { cache: "no-cache" });
+    if (response.status === 404) throw new Unknown();
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const box = await response.json();
+    const material = await crypto.subtle.importKey("raw", enc.encode(id), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: b64d(box.salt), iterations: 250000, hash: "SHA-256" },
+      material, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    let plain;
     try {
-      const response = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
-      if (!response.ok) return;
-      const latest = await response.json();
-      if (latest.version && latest.version !== guideVersion) {
-        updateLink.href = `?v=${encodeURIComponent(latest.version)}`;
-        updateNotice.classList.remove("hidden");
-      }
+      plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(box.iv) }, key, b64d(box.ct));
     } catch {
-      // An offline or failed check must not stop the operator using this guide.
-    } finally {
-      versionCheckRunning = false;
+      throw new Unknown();
     }
+    try { sessionStorage.setItem(STORE, id); } catch {}
+    document.open();
+    document.write(new TextDecoder().decode(plain));
+    document.close();
   }
 
-  checkGuideVersion();
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") checkGuideVersion();
+  function showForm(message) {
+    form.hidden = false;
+    error.textContent = message || "";
+    button.disabled = false;
+    button.textContent = "Open guide";
+    field.focus();
+    field.select();
+  }
+
+  function failed(err) {
+    try { sessionStorage.removeItem(STORE); } catch {}
+    showForm(err instanceof Unknown ? "Unknown factory ID." : "Could not load the guide. Check the connection and try again.");
+  }
+
+  if (!globalThis.crypto?.subtle) {
+    form.hidden = false;
+    error.textContent = "This browser cannot open the guide. Open the link over https.";
+    button.disabled = true;
+    return;
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    error.textContent = "";
+    button.disabled = true;
+    button.textContent = "Opening…";
+    open(field.value).catch(failed);
   });
+
+  let saved;
+  try { saved = sessionStorage.getItem(STORE); } catch {}
+  if (saved) {
+    field.value = saved;
+    open(saved).catch(failed);
+  } else {
+    showForm();
+  }
+})();
 </script>
+</body>
+</html>
