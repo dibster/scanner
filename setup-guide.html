@@ -40,11 +40,13 @@
 </form>
 <script>
 (() => {
-  // Each guide is encrypted at <DIR><lookup>.bin, lookup = first 16 hex of SHA-256("tv-guide:" + id);
-  // the key is PBKDF2-SHA256(id, salt, 250000) → AES-256-GCM. The id is a factory ID (setup guide,
-  // f/) or the user guide's password (u/). Built by docs/tools/guide in tv-commissioning-app; keep
-  // both sides in step.
-  const DIR = /*DIR*/"f/";
+  // Each factory's guide is encrypted at f/<lookup>.bin, lookup = first 16 hex of
+  // SHA-256("tv-guide:" + id); the key is PBKDF2-SHA256(id, salt, 250000) → AES-256-GCM. The user
+  // guide is one file, FILE, behind a password: its name must not come from the password (a fast
+  // hash would give it away), so a wrong password fails to decrypt instead of missing a file.
+  // Built by docs/tools/guide in tv-commissioning-app; keep both sides in step.
+  const FILE = /*FILE*/"";
+  const DIR = FILE ? FILE.slice(0, FILE.lastIndexOf("/") + 1) : "f/";
   const STORE = "tv-guide-id:" + DIR;
   const form = document.getElementById("gate");
   const field = document.getElementById("factory-id");
@@ -97,7 +99,7 @@
   async function open(raw) {
     const id = raw.trim();
     if (!id) throw new Unknown();
-    const response = await fetch(DIR + (await lookup(id)) + ".bin", { cache: "no-cache" });
+    const response = await fetch(FILE || "f/" + (await lookup(id)) + ".bin", { cache: "no-cache" });
     if (response.status === 404) throw new Unknown();
     if (!response.ok) throw new Error("HTTP " + response.status);
     const box = await response.json();
