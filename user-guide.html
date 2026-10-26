@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="guide-version" content="2026-10-26.1">
+<meta name="guide-version" content="2026-10-26.2">
 <title>TrackVision App User Guide</title>
 <style>
   :root { --blue:#1857ff; --green:#10893e; --amber:#b25e00; --red:#b42318; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
@@ -42,17 +42,16 @@
   .hidden { display:none; }
 
   .langbar { position:sticky; top:0; z-index:10; background:#f7f8fadd; backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
-  .langs { max-width:920px; margin:auto; padding:10px 20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  .lang { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:white; color:var(--ink); border-radius:999px; padding:8px 14px; font:inherit; font-size:16px; font-weight:700; cursor:pointer; }
-  .lang .flag { font-size:22px; line-height:1; }
-  .lang[aria-pressed="true"] { border-color:var(--blue); background:#eaf0ff; color:var(--blue); box-shadow:inset 0 0 0 1px var(--blue); }
-  .lang:focus-visible { outline:3px solid var(--blue); outline-offset:2px; }
+  .langs { max-width:920px; margin:auto; padding:10px 20px; display:flex; justify-content:flex-end; align-items:center; gap:10px; }
+  .langs label { font-size:24px; line-height:1; }
+  .lang-select { min-width:0; max-width:100%; border:1px solid var(--line); background:white; color:var(--ink); border-radius:12px; padding:10px 14px; font:inherit; font-size:17px; font-weight:700; cursor:pointer; }
+  .lang-select:focus-visible { outline:3px solid var(--blue); outline-offset:2px; }
 
   @media (max-width:700px) { .step { grid-template-columns:1fr; } .screens { grid-template-columns:1fr; } .toc ol { columns:1; } }
 </style>
 <body>
 
-<div class="langbar hidden" id="langbar"><nav class="langs" id="langs" aria-label="Language"></nav></div>
+<div class="langbar hidden" id="langbar"><div class="langs"><label for="lang-select" title="Language"><span aria-hidden="true">🌐</span></label><select class="lang-select" id="lang-select" aria-label="Language"></select></div></div>
 
 <main>
 <div class="wrap">
@@ -238,22 +237,15 @@
       el.innerHTML = text ? fill(text, el, code) : el.dataset.en;
     }
     document.documentElement.lang = code;
-    for (const b of document.querySelectorAll(".lang")) b.setAttribute("aria-pressed", String(b.dataset.code === code));
+    const select = document.getElementById("lang-select");
+    if (select) select.value = code;
     if (remember) try { localStorage.setItem(LANG_KEY, code); } catch {}
   }
 
   if (I18N.languages.length > 1) {
-    const bar = document.getElementById("langs");
-    for (const l of I18N.languages) {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "lang";
-      b.dataset.code = l.code;
-      b.lang = l.code;
-      b.innerHTML = '<span class="flag" aria-hidden="true">' + esc(l.flag) + "</span>" + esc(l.native_name);
-      b.addEventListener("click", () => setLanguage(l.code, true));
-      bar.append(b);
-    }
+    const select = document.getElementById("lang-select");
+    for (const l of I18N.languages) select.append(new Option(l.flag + "  " + l.native_name, l.code));
+    select.addEventListener("change", () => setLanguage(select.value, true));
     document.getElementById("langbar").classList.remove("hidden");
   }
   setLanguage(startLanguage(), false);
