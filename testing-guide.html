@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>TrackVision Testing Guide</title>
+<style>
+  :root { --blue:#1857ff; --ink:#101828; --gray:#667085; --line:#e4e7ec; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; padding:20px; background:#f7f8fa;
+    color:var(--ink); font-family:Inter,system-ui,sans-serif; }
+  form { width:min(420px,100%); background:white; border:1px solid var(--line); border-radius:28px;
+    box-shadow:0 12px 40px #10182812; padding:30px; }
+  h1 { font-size:30px; line-height:1.1; margin:0 0 10px; }
+  p { margin:0; color:var(--gray); font-size:17px; }
+  label { display:block; color:var(--gray); font-weight:750; margin:18px 0 8px; }
+  input { width:100%; border:1px solid var(--line); border-radius:14px; padding:14px 16px; font-size:20px; }
+  button { width:100%; margin-top:18px; border:0; border-radius:14px; background:var(--blue); color:white;
+    font-size:18px; font-weight:800; padding:14px; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:default; }
+  .error { min-height:22px; margin:12px 0 0; color:#b42318; font-weight:750; text-align:center; }
+  .langs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 20px; }
+  .lang { width:auto; margin:0; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:white;
+    color:var(--ink); border-radius:999px; padding:8px 14px; font-size:16px; font-weight:700; }
+  .lang .flag { font-size:22px; line-height:1; }
+  .lang[aria-pressed="true"] { border-color:var(--blue); background:#eaf0ff; color:var(--blue); box-shadow:inset 0 0 0 1px var(--blue); }
+  .lang:focus-visible { outline:3px solid var(--blue); outline-offset:2px; }
+</style>
+</head>
+<body>
+<form id="gate" hidden autocomplete="off">
+  <nav class="langs" id="langs" aria-label="Language" hidden></nav>
+  <h1 data-s="shell_title">TrackVision setup guide</h1>
+  <p data-s="shell_intro">Enter your factory ID to open your guide.</p>
+  <label for="factory-id" data-s="shell_label">Factory ID</label>
+  <input id="factory-id" inputmode="text" autocapitalize="off" spellcheck="false" autofocus>
+  <button id="open" type="submit" data-s="shell_open">Open guide</button>
+  <p id="error" class="error" role="alert"></p>
+</form>
+<script>
+(() => {
+  // Each factory's guide is encrypted at f/<lookup>.bin, lookup = first 16 hex of
+  // SHA-256("tv-guide:" + id); the key is PBKDF2-SHA256(id, salt, 250000) → AES-256-GCM.
+  // Built by docs/tools/guide in tv-commissioning-app; keep both sides in step.
+  const STORE = "tv-testing-factory-id";
+  const form = document.getElementById("gate");
+  const field = document.getElementById("factory-id");
+  const button = document.getElementById("open");
+  const error = document.getElementById("error");
+  const enc = new TextEncoder();
+  const b64d = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+
+  // Language: the same choice as the guide (localStorage). Strings are filled in by docs/tools/guide
+  // from docs/<customer>/setup-guide/i18n; English is the fallback for anything missing.
+  const I18N = /*I18N*/{"languages":[{"code":"en","native_name":"English","flag":"🇬🇧","sort":10},{"code":"es","native_name":"Español","flag":"🇲🇽","sort":20},{"code":"vi","native_name":"Tiếng Việt","flag":"🇻🇳","sort":30},{"code":"th","native_name":"ไทย","flag":"🇹🇭","sort":40},{"code":"si","native_name":"සිංහල","flag":"🇱🇰","sort":50},{"code":"ta","native_name":"தமிழ்","flag":"🇱🇰","sort":60},{"code":"id","native_name":"Bahasa Indonesia","flag":"🇮🇩","sort":70},{"code":"bn","native_name":"বাংলা","flag":"🇧🇩","sort":80},{"code":"zh-TW","native_name":"繁體中文","flag":"🇹🇼","sort":90}],"strings":{"bn":{"shell_failed":"গাইড লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।","shell_intro":"আপনার গাইড খুলতে কারখানার ID লিখুন।","shell_label":"কারখানা ID","shell_no_crypto":"এই ব্রাউজার গাইডটি খুলতে পারছে না। লিঙ্কটি https দিয়ে খুলুন।","shell_open":"গাইড খুলুন","shell_opening":"খুলছে…","shell_title":"TrackVision সেটআপ গাইড","shell_unknown":"অজানা কারখানা ID।"},"en":{"shell_failed":"Could not load the guide. Check the connection and try again.","shell_intro":"Enter your factory ID to open your guide.","shell_label":"Factory ID","shell_no_crypto":"This browser cannot open the guide. Open the link over https.","shell_open":"Open guide","shell_opening":"Opening…","shell_title":"TrackVision setup guide","shell_unknown":"Unknown factory ID."},"es":{"shell_failed":"No se pudo cargar la guía. Verifique la conexión e intente de nuevo.","shell_intro":"Ingrese el ID de su fábrica para abrir su guía.","shell_label":"ID de fábrica","shell_no_crypto":"Este navegador no puede abrir la guía. Abra el enlace mediante https.","shell_open":"Abrir guía","shell_opening":"Abriendo…","shell_title":"Guía de configuración de TrackVision","shell_unknown":"ID de fábrica desconocido."},"id":{"shell_failed":"Gagal memuat panduan. Periksa koneksi dan coba lagi.","shell_intro":"Masukkan ID pabrik Anda untuk membuka panduan.","shell_label":"ID Pabrik","shell_no_crypto":"Browser ini tidak dapat membuka panduan. Buka tautan melalui https.","shell_open":"Buka panduan","shell_opening":"Membuka…","shell_title":"Panduan pengaturan TrackVision","shell_unknown":"ID pabrik tidak dikenal."},"si":{"shell_failed":"මාර්ගෝපදේශය ලබාගත නොහැකි විය. සබඳතාව පරීක්ෂා කර නැවත උත්සාහ කරන්න.","shell_intro":"ඔබගේ මාර්ගෝපදේශය විවෘත කිරීමට කර්මාන්තශාලා ID එක ඇතුළත් කරන්න.","shell_label":"කර්මාන්තශාලා ID එක","shell_no_crypto":"මෙම බ්‍රවුසරයට මාර්ගෝපදේශය විවෘත කළ නොහැක. https හරහා සබැඳිය විවෘත කරන්න.","shell_open":"මාර්ගෝපදේශය විවෘත කරන්න","shell_opening":"විවෘත වෙමින් පවතී…","shell_title":"TrackVision සැකසුම් මාර්ගෝපදේශය","shell_unknown":"නොදන්නා කර්මාන්තශාලා ID."},"ta":{"shell_failed":"வழிகாட்டியை ஏற்ற முடியவில்லை. இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.","shell_intro":"உங்கள் வழிகாட்டியைத் திறக்க உங்கள் தொழிற்சாலை ID ஐ உள்ளிடவும்.","shell_label":"தொழிற்சாலை ID","shell_no_crypto":"இந்த உலாவி வழிகாட்டியைத் திறக்க முடியாது. https மூலம் இணைப்பைத் திறக்கவும்.","shell_open":"வழிகாட்டியைத் திறக்கவும்","shell_opening":"திறக்கிறது…","shell_title":"TrackVision அமைப்பு வழிகாட்டி","shell_unknown":"தெரியாத தொழிற்சாலை ID."},"th":{"shell_failed":"ไม่สามารถโหลดคู่มือได้ โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง","shell_intro":"ป้อน ID โรงงานของคุณเพื่อเปิดคู่มือ","shell_label":"ID โรงงาน","shell_no_crypto":"เบราว์เซอร์นี้ไม่สามารถเปิดคู่มือได้ โปรดเปิดลิงก์ผ่าน https","shell_open":"เปิดคู่มือ","shell_opening":"กำลังเปิด…","shell_title":"คู่มือการตั้งค่า TrackVision","shell_unknown":"ไม่พบ ID โรงงานนี้"},"vi":{"shell_failed":"Không thể tải hướng dẫn. Kiểm tra kết nối và thử lại.","shell_intro":"Nhập ID nhà máy của bạn để mở hướng dẫn.","shell_label":"ID nhà máy","shell_no_crypto":"Trình duyệt này không thể mở hướng dẫn. Mở liên kết qua https.","shell_open":"Mở hướng dẫn","shell_opening":"Đang mở…","shell_title":"Hướng dẫn thiết lập TrackVision","shell_unknown":"ID nhà máy không xác định."},"zh-TW":{"shell_failed":"無法載入指南。請檢查網路連線後重試。","shell_intro":"輸入您的工廠 ID 以開啟指南。","shell_label":"工廠 ID","shell_no_crypto":"此瀏覽器無法開啟指南。請透過 https 開啟連結。","shell_open":"開啟指南","shell_opening":"正在開啟…","shell_title":"TrackVision 設定指南","shell_unknown":"未知的工廠 ID。"}},"ui":null};
+  const LANG_KEY = "tv-guide-lang";
+  const codes = I18N.languages.map((l) => l.code);
+  let lang = "en";
+  try { lang = localStorage.getItem(LANG_KEY) || ""; } catch {}
+  if (!codes.includes(lang)) {
+    lang = "en";
+    for (const tag of navigator.languages || []) {
+      const hit = codes.find((c) => c.toLowerCase() === tag.toLowerCase()) || codes.find((c) => c.split("-")[0] === tag.split("-")[0].toLowerCase());
+      if (hit) { lang = hit; break; }
+    }
+  }
+  const t = (key) => (I18N.strings[lang] || {})[key] || (I18N.strings.en || {})[key];
+  function setLanguage(code, remember) {
+    lang = code;
+    document.documentElement.lang = code;
+    for (const el of document.querySelectorAll("[data-s]")) {
+      if (!(button.disabled && el === button)) el.textContent = t(el.dataset.s) || el.textContent;
+    }
+    for (const b of document.querySelectorAll(".lang")) b.setAttribute("aria-pressed", String(b.dataset.code === code));
+    if (remember) try { localStorage.setItem(LANG_KEY, code); } catch {}
+  }
+  if (I18N.languages.length > 1) {
+    const bar = document.getElementById("langs");
+    for (const l of I18N.languages) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "lang";
+      b.dataset.code = l.code;
+      b.lang = l.code;
+      const flag = document.createElement("span");
+      flag.className = "flag";
+      flag.setAttribute("aria-hidden", "true");
+      flag.textContent = l.flag;
+      b.append(flag, l.native_name);
+      b.addEventListener("click", () => setLanguage(l.code, true));
+      bar.append(b);
+    }
+    bar.hidden = false;
+  }
+  setLanguage(lang, false);
+
+  class Unknown extends Error {}
+
+  async function lookup(id) {
+    const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode("tv-guide:" + id)));
+    return Array.from(digest.slice(0, 8), (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function open(raw) {
+    const id = raw.trim();
+    if (!id) throw new Unknown();
+    const response = await fetch("t/" + (await lookup(id)) + ".bin", { cache: "no-cache" });
+    if (response.status === 404) throw new Unknown();
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const box = await response.json();
+    const material = await crypto.subtle.importKey("raw", enc.encode(id), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: b64d(box.salt), iterations: 250000, hash: "SHA-256" },
+      material, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    let plain;
+    try {
+      plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(box.iv) }, key, b64d(box.ct));
+    } catch {
+      throw new Unknown();
+    }
+    try { sessionStorage.setItem(STORE, id); } catch {}
+    document.open();
+    document.write(new TextDecoder().decode(plain));
+    document.close();
+  }
+
+  function showForm(message) {
+    form.hidden = false;
+    error.textContent = message || "";
+    button.disabled = false;
+    button.textContent = t("shell_open");
+    field.focus();
+    field.select();
+  }
+
+  function failed(err) {
+    try { sessionStorage.removeItem(STORE); } catch {}
+    showForm(t(err instanceof Unknown ? "shell_unknown" : "shell_failed"));
+  }
+
+  if (!globalThis.crypto?.subtle) {
+    form.hidden = false;
+    error.textContent = t("shell_no_crypto");
+    button.disabled = true;
+    return;
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    error.textContent = "";
+    button.disabled = true;
+    button.textContent = t("shell_opening");
+    open(field.value).catch(failed);
+  });
+
+  let saved;
+  try { saved = sessionStorage.getItem(STORE); } catch {}
+  if (saved) {
+    field.value = saved;
+    open(saved).catch(failed);
+  } else {
+    showForm();
+  }
+})();
+</script>
+</body>
+</html>
